@@ -8,18 +8,20 @@ import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:robot_de_multimedia/domain/entities/audio.dart';
+import 'package:robot_de_multimedia/domain/entities/image.dart';
 import 'package:robot_de_multimedia/domain/entities/video.dart';
 
 abstract class MediaLocalDatasource {
   Future<Audio> extractAudio(Video video, String formatAudioByUser);
-  Future<Video> convertVideo();
+  Future<Video> convertVideo(Video video, String formatByUser);
+  Future<Video> convertImage(Image image, String formatByUser);
+  Future<Video> convertAudio(Audio audio, String formatByUser);
 }
 
 //esta clase de implementacion, tiene los metodos explicitos del como se hace
 class MediaLocalDatasourceImpl implements MediaLocalDatasource {
   @override
   Future<Audio> extractAudio(Video video, String formatAudioByUser) async {
-    // Define la ruta del archivo de audio de salida
     final rutaAudio =
         video.pathIn.replaceAll(RegExp(r'\.\w+$'), '.$formatAudioByUser');
 
@@ -54,7 +56,24 @@ class MediaLocalDatasourceImpl implements MediaLocalDatasource {
     // Devuelve el objeto Audio
     return audio;
   }
-
+  
   @override
-  Future<Video> convertVideo() {}
+  Future<Video> convertVideo(Video video, String formatByUser) {
+    // TODO: implement convertVideo
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Video> convertAudio(Audio audio, String formatByUser) {
+    // TODO: implement convertAudio
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Video> convertImage(Image image, String formatByUser) {
+    // TODO: implement convertImage
+    throw UnimplementedError();
+  }
+
+ 
 }

@@ -1,4 +1,4 @@
-// este repositorio de data implementa el repositorio del dominio
+// este repositorio lo implementa el repositorio del dominio
 
 import 'package:robot_de_multimedia/data/datasources/media_local_datasources.dart';
 import 'package:robot_de_multimedia/domain/entities/audio.dart';
@@ -17,20 +17,17 @@ class MediaRepositoryImpl implements MediaRepository {
   }
 
   @override
-  Future<Video> convertAudio(Audio audio, String format) {
-    // TODO: implement convertAudio
-    throw UnimplementedError();
+  Future<Video> convertAudio(Audio audio, String format) async {
+    return await localDataSource.convertAudio(audio, format);
   }
 
   @override
-  Future<Video> convertImage(Image image, String format) {
-    // TODO: implement convertImage
-    throw UnimplementedError();
+  Future<Video> convertImage(Image image, String format) async {
+    return await localDataSource.convertImage(image, format);
   }
 
   @override
-  Future<Video> convertVideo(Video video, String format) {
-    // TODO: implement convertVideo
-    throw UnimplementedError();
+  Future<Video> convertVideo(Video video, String format) async {
+    return await localDataSource.convertVideo(video, format);
   }
 }
