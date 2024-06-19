@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-final ThemeData appThemeData = ThemeData(
+final ThemeData myAppThemeData = ThemeData(
   brightness: Brightness.dark,
-  primaryColor: Colors.grey[900],
+  primaryColor: const Color.fromARGB(255, 14, 14, 14),
+  scaffoldBackgroundColor: Colors.grey[850],
   colorScheme: ColorScheme.fromSwatch(
     primarySwatch: Colors.grey,
     brightness: Brightness.dark,
-    accentColor: Colors.grey[600],
+    accentColor: Color.fromARGB(255, 6, 161, 84),
   ),
-  scaffoldBackgroundColor: Colors.grey[850],
   textTheme: const TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
     bodyMedium: TextStyle(color: Colors.white70),

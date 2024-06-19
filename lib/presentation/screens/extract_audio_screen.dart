@@ -11,9 +11,9 @@ class ExtractAudio extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mediaUseCase = ref.watch(mediaUseCaseProvider);
-    //mediaUseCase.extractAudio();
 
-    FutureBuilder<Audio>(
+//return
+/*     FutureBuilder<Audio>(
       future:
           mediaUseCase.extractAudio(video, format), //Entra video y formato dado
       builder: (context, snapshot) {
@@ -25,7 +25,7 @@ class ExtractAudio extends ConsumerWidget {
           return Text('Audio extraído con éxito: ${snapshot.data}');
         }
       },
-    );
+    ); */
 
     return const Scaffold();
   }

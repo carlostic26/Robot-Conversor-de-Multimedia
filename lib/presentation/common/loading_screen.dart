@@ -1,59 +1,30 @@
-import 'package:flutter/foundation.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:robot_de_multimedia/presentation/providers/riverpod.dart';
-
+import 'package:robot_de_multimedia/presentation/screens/home_screen.dart';
+import 'package:robot_de_multimedia/presentation/theme/app_theme.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 
-class LoadingScreen extends ConsumerStatefulWidget {
+class LoadingScreen extends ConsumerWidget {
   const LoadingScreen({super.key});
 
   @override
-  _LoadingScreenState createState() => _LoadingScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    /*Inicialización de variables y estados */
 
-class _LoadingScreenState extends ConsumerState<LoadingScreen> {
-  int maxCourses = 1004;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Activa el botón después de 10 segundos
-    Future.delayed(Duration(seconds: 10), () {
-      ref.read(buttonProvider.notifier).enableButton();
+    Future.delayed(const Duration(seconds: 10), () {
+      // Habilita el boton solamente en el provider
+      ref.read(buttonContinue.notifier).enableButton();
     });
-  }
 
-  isLoaded(context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? primerAcceso = prefs.getBool('primerAcceso');
+    final buttonEnabled = ref.watch(
+        buttonContinue); //crea variable que solo observa el estado del boton
 
-    //print('primer acceso bool:$primerAcceso');
-
-    if (primerAcceso == true || primerAcceso == null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => TutorialScreen()));
-    } else {
-      if (primerAcceso == false) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (_) => HomeCategoriasSelectCards()));
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final buttonEnabled = ref.watch(buttonProvider);
-
-    // El resto de tu código...
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
-    // Calcula la diagonal de la pantalla
     double screenDiagonal = sqrt(height * height + width * width);
-
     bool isTablet = screenDiagonal > 900.0;
 
     // Determina la orientación de la pantalla
@@ -76,9 +47,8 @@ class _LoadingScreenState extends ConsumerState<LoadingScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.grey[850],
+      backgroundColor: myAppThemeData.scaffoldBackgroundColor,
       body: Stack(children: [
-        AnimatedBackground(),
         Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -88,27 +58,28 @@ class _LoadingScreenState extends ConsumerState<LoadingScreen> {
               ),
               Container(
                 height: imageHeight,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 5,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
                 ),
-                child: Image.asset("assets/logo.png"),
+                child: //Image.asset("assets/logo.png"),
+                    Placeholder(),
               ),
               SizedBox(
                 height: height * 0.01,
               ),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     LinearPercentIndicator(
-                        width: width * 0.55,
-                        lineHeight: 5,
-                        percent: 100 / 100,
-                        animation: true,
-                        animationDuration:
-                            10000, // 8.5 sec para cargar la barra
-                        progressColor: Colors.blueGrey),
+                      width: width * 0.55,
+                      lineHeight: 5,
+                      percent: 100 / 100,
+                      animation: true,
+                      animationDuration: 10000, //sec para cargar la barra
+                      progressColor: myAppThemeData.colorScheme.primary,
+                    ),
                   ],
                 ),
               ),
@@ -116,15 +87,7 @@ class _LoadingScreenState extends ConsumerState<LoadingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Recopilando ",
-                    style: TextStyle(
-                      fontSize: textSize,
-                      color: Colors.white,
-                    ),
-                  ),
-                  CountingAnimation(endCount: maxCourses, textSize: textSize),
-                  Text(
-                    " cursos gratuitos de 22 categorias...",
+                    " cargando modelos de conversores y extractores...",
                     style: TextStyle(
                       fontSize: textSize,
                       color: Colors.white,
@@ -142,15 +105,21 @@ class _LoadingScreenState extends ConsumerState<LoadingScreen> {
                   child: TextButton(
                     onPressed: buttonEnabled
                         ? () async {
-                            isLoaded(context);
+                            //El siguiente metodo es para el caso que sea primer acceso y se deba mostrar tutorial
+                            //isLoaded(context);
+
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const HomeScreen()));
                           }
                         : null,
                     style: ButtonStyle(
                       backgroundColor: buttonEnabled
-                          ? MaterialStateProperty.all<Color>(
+                          ? WidgetStateProperty.all<Color>(
                               Colors.blueGrey,
                             )
-                          : MaterialStateProperty.all<Color>(Colors.grey),
+                          : WidgetStateProperty.all<Color>(Colors.grey),
                     ),
                     child: Text(
                       'Continuar',
@@ -162,68 +131,28 @@ class _LoadingScreenState extends ConsumerState<LoadingScreen> {
                   ),
                 ),
               ),
-/*               Text(
-                "Somos el Google de los cursos gratisen internet",
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ), */
             ],
           ),
         ),
       ]),
     );
   }
-}
 
-class CountingAnimation extends StatefulWidget {
-  final int endCount;
-  final double textSize;
+//El siguiente codigo es para el caso que sea primer acceso y se deba mostrar tutorial
 
-  CountingAnimation({required this.endCount, required this.textSize});
+/* isLoaded(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? primerAcceso = prefs.getBool('primerAcceso');
 
-  @override
-  _CountingAnimationState createState() => _CountingAnimationState();
-}
+    //print('primer acceso bool:$primerAcceso');
 
-class _CountingAnimationState extends State<CountingAnimation>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: Duration(seconds: 9),
-      vsync: this,
-    );
-    _animation = Tween<double>(begin: 0, end: widget.endCount.toDouble())
-        .animate(_controller);
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (BuildContext context, Widget? child) {
-        return Text(
-          _animation.value.toInt().toString(),
-          style: TextStyle(
-            fontSize: widget.textSize,
-            color: Colors.white,
-          ),
-        );
-      },
-    );
-  }
+     if (primerAcceso == true || primerAcceso == null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => HomeScreen()));
+    } else {
+      if (primerAcceso == false) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (_) => HomeScreen()));
+      }
+    }  */
 }
