@@ -7,21 +7,40 @@
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:robot_de_multimedia/domain/entities/audio.dart';
-import 'package:robot_de_multimedia/domain/entities/image.dart';
-import 'package:robot_de_multimedia/domain/entities/video.dart';
+import 'package:robot_de_multimedia/domain/entities/audio_entity.dart';
+import 'package:robot_de_multimedia/domain/entities/image_entity.dart';
+import 'package:robot_de_multimedia/domain/entities/video_entity.dart';
 
 abstract class MediaLocalDatasource {
-  Future<Audio> extractAudio(Video video, String formatAudioByUser);
-  Future<Video> convertVideo(Video video, String formatByUser);
-  Future<Video> convertImage(Image image, String formatByUser);
-  Future<Video> convertAudio(Audio audio, String formatByUser);
+  Future<VideoEntity> convertVideo(VideoEntity video, String formatByUser);
+  Future<ImageEntity> convertImage(ImageEntity image, String formatByUser);
+  Future<AudioEntity> convertAudio(AudioEntity audio, String formatByUser);
+  Future<AudioEntity> extractAudio(VideoEntity video, String formatAudioByUser);
 }
 
 //esta clase de implementacion, tiene los metodos explicitos del como se hace
 class MediaLocalDatasourceImpl implements MediaLocalDatasource {
   @override
-  Future<Audio> extractAudio(Video video, String formatAudioByUser) async {
+  Future<VideoEntity> convertVideo(VideoEntity video, String formatByUser) {
+    // TODO: implement convertVideo
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<AudioEntity> convertAudio(AudioEntity audio, String formatByUser) {
+    // TODO: implement convertAudio
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ImageEntity> convertImage(ImageEntity image, String formatByUser) {
+    // TODO: implement convertImage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<AudioEntity> extractAudio(
+      VideoEntity video, String formatAudioByUser) async {
     final rutaAudio =
         video.pathIn.replaceAll(RegExp(r'\.\w+$'), '.$formatAudioByUser');
 
@@ -43,7 +62,7 @@ class MediaLocalDatasourceImpl implements MediaLocalDatasource {
     });
 
     // Crea un objeto Audio con la información relevante entregada por el video
-    final audio = Audio(
+    final audio = AudioEntity(
       id: video.id,
       title: '${video.title}_audio_',
       duration: video.duration,
@@ -56,24 +75,4 @@ class MediaLocalDatasourceImpl implements MediaLocalDatasource {
     // Devuelve el objeto Audio
     return audio;
   }
-  
-  @override
-  Future<Video> convertVideo(Video video, String formatByUser) {
-    // TODO: implement convertVideo
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<Video> convertAudio(Audio audio, String formatByUser) {
-    // TODO: implement convertAudio
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<Video> convertImage(Image image, String formatByUser) {
-    // TODO: implement convertImage
-    throw UnimplementedError();
-  }
-
- 
 }

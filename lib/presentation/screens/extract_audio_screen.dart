@@ -1,12 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:robot_de_multimedia/domain/entities/audio.dart';
-import 'package:robot_de_multimedia/domain/usecases/media_use_cases.dart';
-import 'package:robot_de_multimedia/presentation/providers/riverpod.dart';
+import 'package:robot_de_multimedia/presentation/screens_barril.dart';
 
-class ExtractAudio extends ConsumerWidget {
-  const ExtractAudio({super.key});
+class ExtractAudioScreen extends ConsumerWidget {
+  const ExtractAudioScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

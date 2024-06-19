@@ -1,4 +1,4 @@
-class Audio {
+class AudioEntity {
   String id;
   String title;
   String duration; //elegir formato segundos o minuto, quitar string
@@ -6,7 +6,7 @@ class Audio {
   String? pathOut;
   String? format;
 
-  Audio(
+  AudioEntity(
       {required this.id,
       required this.title,
       required this.duration,

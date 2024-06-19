@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:robot_de_multimedia/presentation/screens_barril.dart';
 
-class ConvertScreen extends StatelessWidget {
-  const ConvertScreen({super.key});
+class ConvertVideoScreen extends StatelessWidget {
+  const ConvertVideoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:robot_de_multimedia/presentation/screens/convert_video_screen.dart';
 import 'package:robot_de_multimedia/presentation/widgets/option_icon_menu.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,13 +22,13 @@ class HomeScreen extends StatelessWidget {
                 icon: Icons.video_library,
                 label: 'Convertir Video',
                 onTapCallback: () =>
-                    _goToVideoScreen(context), // Navega a la pantalla de video
+                    _goToVideoScreen(context), // Navega a la pantalla de video convert
               ),
               OptionIcon(
                 icon: Icons.image,
                 label: 'Convertir Imagen',
                 onTapCallback: () =>
-                    _goToImageScreen(context), // Navega a la pantalla de imagen
+                    _goToImageScreen(context), // Navega a la pantalla de image convert
               ),
               OptionIcon(
                 icon: Icons.audiotrack,
@@ -47,11 +48,21 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _goToVideoScreen(BuildContext context) {
+   Navigator.push(context, MaterialPageRoute(
+                              builder: (_) => ConvertVideoScreen(
+                                  )))
+  }
+
+  void _goToImageScreen(BuildContext context) {
+    // Lógica para navegar a la pantalla de imagen
+  }
+
+    void _goToSAudioScreen(BuildContext context) {
     // Lógica para navegar a la pantalla de video
     // Puedes usar Navigator.push() para cambiar a la nueva pantalla.
   }
 
-  void _goToImageScreen(BuildContext context) {
+  void _goToExtractAudioScreen(BuildContext context) {
     // Lógica para navegar a la pantalla de imagen
   }
 }
