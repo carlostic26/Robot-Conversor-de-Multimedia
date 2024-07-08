@@ -1,6 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:robot_de_multimedia/presentation/screens/convert_video_screen.dart';
-import 'package:robot_de_multimedia/presentation/widgets/option_icon_menu.dart';
+import 'package:robot_conversor_multimedia/presentation/screens/convert_screen.dart';
+import 'package:robot_conversor_multimedia/presentation/screens/extract_audio.dart';
+import 'package:robot_conversor_multimedia/presentation/screens/info_screen.dart';
+
+import '../widgets/custom_button_home.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,60 +13,62 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Robot conversor'),
         centerTitle: true,
+        title: const Text('Menú Principal'),
+        actions: [
+/*           IconButton(
+            onPressed: infoApp(context),
+            icon: const Icon(Icons.info),
+          ) */
+        ],
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(15, 80, 15, 5),
-          child: GridView.count(
-            crossAxisCount: 2,
-            children: [
-              OptionIcon(
-                icon: Icons.video_library,
-                label: 'Convertir Video',
-                onTapCallback: () =>
-                    _goToVideoScreen(context), // Navega a la pantalla de video convert
-              ),
-              OptionIcon(
-                icon: Icons.image,
-                label: 'Convertir Imagen',
-                onTapCallback: () =>
-                    _goToImageScreen(context), // Navega a la pantalla de image convert
-              ),
-              OptionIcon(
-                icon: Icons.audiotrack,
-                label: 'Convertir Audio',
-                onTapCallback: () {},
-              ),
-              OptionIcon(
-                icon: Icons.headset,
-                label: 'Extraer Audio',
-                onTapCallback: () {},
-              ),
-            ],
+      body: GridView.count(
+        crossAxisCount: 2, // Número de columnas en el grid
+        children: [
+          CustomButton(
+            imagePath: 'assets/button1.png',
+            onPressed: () {
+              goExtractAudioScreen(context);
+            },
+            buttonText: 'Extraer audio',
           ),
-        ),
+          CustomButton(
+            imagePath: 'assets/button2.png',
+            onPressed: () {
+              goconverScreen(context);
+            },
+            buttonText: 'Convertir video',
+          ),
+          CustomButton(
+            imagePath: 'assets/button3.png',
+            onPressed: () {
+              goconverScreen(context);
+            },
+            buttonText: 'Convertir audio',
+          ),
+          CustomButton(
+            imagePath: 'assets/button4.png',
+            onPressed: () {
+              goconverScreen(context);
+            },
+            buttonText: 'Convertir imagen',
+          ),
+        ],
       ),
     );
   }
 
-  void _goToVideoScreen(BuildContext context) {
-   Navigator.push(context, MaterialPageRoute(
-                              builder: (_) => ConvertVideoScreen(
-                                  )))
+  infoApp(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const InfoApp()));
   }
 
-  void _goToImageScreen(BuildContext context) {
-    // Lógica para navegar a la pantalla de imagen
+  void goExtractAudioScreen(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (_) => const ExtractAudioScreen()));
   }
 
-    void _goToSAudioScreen(BuildContext context) {
-    // Lógica para navegar a la pantalla de video
-    // Puedes usar Navigator.push() para cambiar a la nueva pantalla.
-  }
-
-  void _goToExtractAudioScreen(BuildContext context) {
-    // Lógica para navegar a la pantalla de imagen
+  void goconverScreen(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (_) => const ConvertScreen()));
   }
 }

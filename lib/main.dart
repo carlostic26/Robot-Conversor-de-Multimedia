@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:robot_de_multimedia/presentation/common/loading_screen.dart';
-import 'package:robot_de_multimedia/presentation/theme/app_theme.dart';
-import 'dart:async';
+import 'package:robot_conversor_multimedia/presentation/common/loading_screen.dart';
+import 'package:robot_conversor_multimedia/config/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

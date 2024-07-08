@@ -2,9 +2,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:robot_de_multimedia/presentation/providers/riverpod.dart';
-import 'package:robot_de_multimedia/presentation/screens/home_screen.dart';
-import 'package:robot_de_multimedia/presentation/theme/app_theme.dart';
+import 'package:robot_conversor_multimedia/presentation/providers/riverpod.dart';
+import 'package:robot_conversor_multimedia/presentation/screens/home_screen.dart';
+import 'package:robot_conversor_multimedia/config/theme/app_theme.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingScreen extends ConsumerWidget {
@@ -14,7 +14,7 @@ class LoadingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     /*Inicialización de variables y estados */
 
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 1), () {
       // Habilita el boton solamente en el provider
       ref.read(buttonContinue.notifier).enableButton();
     });
@@ -47,7 +47,7 @@ class LoadingScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      backgroundColor: myAppThemeData.scaffoldBackgroundColor,
+      backgroundColor: myAppThemeData.primaryColor,
       body: Stack(children: [
         Center(
           child: Column(
@@ -59,10 +59,9 @@ class LoadingScreen extends ConsumerWidget {
               Container(
                 height: imageHeight,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
+                  horizontal: 5,
                 ),
-                child: //Image.asset("assets/logo.png"),
-                    Placeholder(),
+                child: Image.asset("assets/logo.png"),
               ),
               SizedBox(
                 height: height * 0.01,
@@ -73,13 +72,12 @@ class LoadingScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     LinearPercentIndicator(
-                      width: width * 0.55,
-                      lineHeight: 5,
-                      percent: 100 / 100,
-                      animation: true,
-                      animationDuration: 10000, //sec para cargar la barra
-                      progressColor: myAppThemeData.colorScheme.primary,
-                    ),
+                        width: width * 0.55,
+                        lineHeight: 5,
+                        percent: 100 / 100,
+                        animation: true,
+                        animationDuration: 10000,
+                        progressColor: Colors.blueGrey),
                   ],
                 ),
               ),
@@ -87,7 +85,7 @@ class LoadingScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    " cargando modelos de conversores y extractores...",
+                    " cursos gratuitos de 22 categorias...",
                     style: TextStyle(
                       fontSize: textSize,
                       color: Colors.white,

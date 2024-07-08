@@ -1,5 +1,5 @@
-//Aqui van los origenes de datos diferentes o unicos que vayamos a implementar
-// Ejemplo: contenido interno del telefono o sqlite, hive.
+// Aqui van los origenes de datos diferentes o unicos que vayamos a implementar
+// Ejemplo: SOLO contenido interno del telefono: sharedpreferences, sqflite, hive.
 
 // La razón por la que ser manejan estas dos clases es para separar las responsabilidades
 // y seguir el principio de inversión de dependencias
@@ -7,40 +7,23 @@
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:robot_de_multimedia/domain/entities/audio_entity.dart';
-import 'package:robot_de_multimedia/domain/entities/image_entity.dart';
-import 'package:robot_de_multimedia/domain/entities/video_entity.dart';
+import 'package:robot_conversor_multimedia/domain/entities/audio.dart';
+import 'package:robot_conversor_multimedia/domain/entities/image.dart';
+import 'package:robot_conversor_multimedia/domain/entities/video.dart';
 
+//funciones del repositorio de data (media_repository_impl)
+// se define como abstract y la siguiente clase los implementa
 abstract class MediaLocalDatasource {
-  Future<VideoEntity> convertVideo(VideoEntity video, String formatByUser);
-  Future<ImageEntity> convertImage(ImageEntity image, String formatByUser);
-  Future<AudioEntity> convertAudio(AudioEntity audio, String formatByUser);
-  Future<AudioEntity> extractAudio(VideoEntity video, String formatAudioByUser);
+  Future<Audio> extractAudio(Video video, String formatAudioByUser);
+  Future<Video> convertVideo(Video video, String formatByUser);
+  Future<Video> convertImage(Image image, String formatByUser);
+  Future<Video> convertAudio(Audio audio, String formatByUser);
 }
 
 //esta clase de implementacion, tiene los metodos explicitos del como se hace
 class MediaLocalDatasourceImpl implements MediaLocalDatasource {
   @override
-  Future<VideoEntity> convertVideo(VideoEntity video, String formatByUser) {
-    // TODO: implement convertVideo
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<AudioEntity> convertAudio(AudioEntity audio, String formatByUser) {
-    // TODO: implement convertAudio
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ImageEntity> convertImage(ImageEntity image, String formatByUser) {
-    // TODO: implement convertImage
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<AudioEntity> extractAudio(
-      VideoEntity video, String formatAudioByUser) async {
+  Future<Audio> extractAudio(Video video, String formatAudioByUser) async {
     final rutaAudio =
         video.pathIn.replaceAll(RegExp(r'\.\w+$'), '.$formatAudioByUser');
 
@@ -62,7 +45,7 @@ class MediaLocalDatasourceImpl implements MediaLocalDatasource {
     });
 
     // Crea un objeto Audio con la información relevante entregada por el video
-    final audio = AudioEntity(
+    final audio = Audio(
       id: video.id,
       title: '${video.title}_audio_',
       duration: video.duration,
@@ -74,5 +57,23 @@ class MediaLocalDatasourceImpl implements MediaLocalDatasource {
 
     // Devuelve el objeto Audio
     return audio;
+  }
+
+  @override
+  Future<Video> convertVideo(Video video, String formatByUser) {
+    // TODO: implement convertVideo
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Video> convertAudio(Audio audio, String formatByUser) {
+    // TODO: implement convertAudio
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Video> convertImage(Image image, String formatByUser) {
+    // TODO: implement convertImage
+    throw UnimplementedError();
   }
 }

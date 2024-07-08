@@ -1,11 +1,11 @@
-class ImageEntity {
+class Image {
   String id;
   String title;
   String pathIn;
   String? pathOut;
   String? format;
 
-  ImageEntity(
+  Image(
       {required this.id,
       required this.title,
       required this.pathIn,
