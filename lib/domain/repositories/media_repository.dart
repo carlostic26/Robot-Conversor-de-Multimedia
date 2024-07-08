@@ -1,4 +1,5 @@
-// El repositorio de dominio accede al repositorio de los datos
+// El repositorio de datasource (media_repository_impl) implementa esta clase
+// Desde aqui (repositorio de dominio) se accede al repositorio de los datos por la impl de datasource
 // y no sabe cómo se almacenan o recuperan los datos.
 // solo declara los metodos y listo (alto nivel)
 

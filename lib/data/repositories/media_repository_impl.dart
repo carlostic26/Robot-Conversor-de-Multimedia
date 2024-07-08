@@ -1,4 +1,5 @@
-// este repositorio lo implementa el repositorio del dominio
+// este repositorio (MediaRepository) es definido (alto nivel) en el repositorio de dominio
+// Por loo tanto implementa de el
 
 import 'package:robot_conversor_multimedia/data/datasources/media_local_datasources.dart';
 import 'package:robot_conversor_multimedia/domain/entities/audio.dart';

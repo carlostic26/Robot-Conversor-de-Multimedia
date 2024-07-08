@@ -1,5 +1,5 @@
-//Aqui van los origenes de datos diferentes o unicos que vayamos a implementar
-// Ejemplo: contenido interno del telefono o sqlite, hive.
+// Aqui van los origenes de datos diferentes o unicos que vayamos a implementar
+// Ejemplo: SOLO contenido interno del telefono: sharedpreferences, sqflite, hive.
 
 // La razón por la que ser manejan estas dos clases es para separar las responsabilidades
 // y seguir el principio de inversión de dependencias
@@ -11,6 +11,8 @@ import 'package:robot_conversor_multimedia/domain/entities/audio.dart';
 import 'package:robot_conversor_multimedia/domain/entities/image.dart';
 import 'package:robot_conversor_multimedia/domain/entities/video.dart';
 
+//funciones del repositorio de data (media_repository_impl)
+// se define como abstract y la siguiente clase los implementa
 abstract class MediaLocalDatasource {
   Future<Audio> extractAudio(Video video, String formatAudioByUser);
   Future<Video> convertVideo(Video video, String formatByUser);

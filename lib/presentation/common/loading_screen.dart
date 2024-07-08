@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:robot_conversor_multimedia/presentation/providers/riverpod.dart';
 import 'package:robot_conversor_multimedia/presentation/screens/home_screen.dart';
-import 'package:robot_conversor_multimedia/presentation/theme/app_theme.dart';
+import 'package:robot_conversor_multimedia/config/theme/app_theme.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingScreen extends ConsumerWidget {
@@ -14,7 +14,7 @@ class LoadingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     /*Inicialización de variables y estados */
 
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 1), () {
       // Habilita el boton solamente en el provider
       ref.read(buttonContinue.notifier).enableButton();
     });
