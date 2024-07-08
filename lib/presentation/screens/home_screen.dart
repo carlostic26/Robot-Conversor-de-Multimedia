@@ -33,21 +33,21 @@ class HomeScreen extends StatelessWidget {
             buttonText: 'Extraer audio',
           ),
           CustomButton(
-            imagePath: 'assets/button2.png',
+            imagePath: 'assets/button1.png',
             onPressed: () {
               goconverScreen(context);
             },
             buttonText: 'Convertir video',
           ),
           CustomButton(
-            imagePath: 'assets/button3.png',
+            imagePath: 'assets/button1.png',
             onPressed: () {
               goconverScreen(context);
             },
             buttonText: 'Convertir audio',
           ),
           CustomButton(
-            imagePath: 'assets/button4.png',
+            imagePath: 'assets/button1.png',
             onPressed: () {
               goconverScreen(context);
             },

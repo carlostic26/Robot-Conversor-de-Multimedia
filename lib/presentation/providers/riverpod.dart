@@ -26,6 +26,7 @@ final mediaLocalDatasourceProvider = Provider<MediaLocalDatasource>((ref) {
 
 final selectedVideoProvider = StateProvider<Video?>((ref) => null);
 final selectedFormatProvider = StateProvider<String?>((ref) => null);
+final audioExtractedProvider = StateProvider<Audio?>((ref) => null);
 
 final buttonContinue = StateNotifierProvider<ButtonNotifier, bool>((ref) {
   return ButtonNotifier();

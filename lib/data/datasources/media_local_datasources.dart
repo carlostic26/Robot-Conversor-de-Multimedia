@@ -24,12 +24,13 @@ abstract class MediaLocalDatasource {
 class MediaLocalDatasourceImpl implements MediaLocalDatasource {
   @override
   Future<Audio> extractAudio(Video video, String formatAudioByUser) async {
-    final rutaAudio =
-        video.pathIn.replaceAll(RegExp(r'\.\w+$'), '.$formatAudioByUser');
+    // final rutaAudio = video.pathIn.replaceAll(RegExp(r'\.\w+$'), '.$formatAudioByUser');
+    final rutaAudio = video.pathIn;
 
-    // Ejecuta el comando ffmpeg para extraer el audio
+/*     // Ejecuta el comando ffmpeg para extraer el audio
     await FFmpegKit.executeAsync(
-        '-i ${video.pathIn} -vn -ar 44100 -ac 2 $rutaAudio', (session) async {
+        '-i ${video.pathIn} -vn -acodec $formatAudioByUser $rutaAudio',
+        (session) async {
       final returnCode = await session.getReturnCode();
 
       if (ReturnCode.isSuccess(returnCode)) {
@@ -39,17 +40,43 @@ class MediaLocalDatasourceImpl implements MediaLocalDatasource {
         print('Proceso cancelado');
         Fluttertoast.showToast(msg: 'Proceso cancelado');
       } else {
-        print('Falló al extraer audio');
-        Fluttertoast.showToast(msg: 'Falló al extraer audio');
+        final error = await session.getFailStackTrace();
+        print('Fallo al extraer audio: $error');
+        Fluttertoast.showToast(msg: 'Fallo al extraer audio: $error');
+      }
+    }); */
+
+/*     try {
+      await FFmpegKit.execute(
+        '-i ${video.pathIn} -vn -acodec $formatAudioByUser $rutaAudio',
+      );
+
+      print('¡Audio extraído exitosamente!');
+    } catch (e) {
+      print('Error al extraer el audio: $e');
+    } */
+
+    FFmpegKit.execute(
+            '-i ${video.pathIn} -q:a 0 -map a audio_${video.title}.mp3')
+        .then((session) async {
+      final returnCode = await session.getReturnCode();
+
+      if (ReturnCode.isSuccess(returnCode)) {
+        Fluttertoast.showToast(msg: 'Extraccion exitosa');
+      } else if (ReturnCode.isCancel(returnCode)) {
+        Fluttertoast.showToast(msg: 'Extraccion cancelada');
+      } else {
+        final error = await session.getFailStackTrace();
+        Fluttertoast.showToast(msg: 'Fallo al extraer audio: $error');
       }
     });
 
     // Crea un objeto Audio con la información relevante entregada por el video
     final audio = Audio(
-      id: video.id,
-      title: '${video.title}_audio_',
+      id: 'audio_${video.id}',
+      title: 'audio_${video.title}',
       duration: video.duration,
-      pathIn: video.pathIn, //la ruta originaria seria la ruta del video
+      pathIn: video.pathIn, //la ruta originaria del video
       pathOut:
           rutaAudio, // la ruta final o de salida, es la que estimemos para cierta carpeta del telefono
       format: formatAudioByUser,

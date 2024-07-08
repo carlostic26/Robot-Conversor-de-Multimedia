@@ -61,7 +61,14 @@ class LoadingScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 5,
                 ),
-                child: Image.asset("assets/logo.png"),
+                child:
+                    //Image.asset("assets/logo.png"),
+
+                    Image.network(
+                  'https://cdn-icons-png.flaticon.com/512/6559/6559073.png',
+                  width: 300,
+                  height: 100,
+                ),
               ),
               SizedBox(
                 height: height * 0.01,
